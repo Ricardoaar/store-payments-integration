@@ -1,0 +1,13 @@
+version: "3.3"
+
+services:
+    mysql:
+        image: mysql:5.7
+        container_name: mysql
+        volumes:
+            - ./database/mysql-data:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: "root"
+            MYSQL_DATABASE: "place2pay_store"
+        ports:
+            - "3306:3306"
