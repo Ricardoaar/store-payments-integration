@@ -25,6 +25,15 @@ module.exports = {
                 'white-opaque': '#f4f6f7',
                 'footer': '#58595b'
 
+            },
+            backgroundImage: {
+                'security': "url('../img/Secure.jpg')",
+                'product': "url('../img/Product.jpeg')",
+                'pay': "url('../img/Pay.png')",
+
+            },
+            screens: {
+                'xs': '500px',
             }
         },
 

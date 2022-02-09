@@ -15,8 +15,25 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+})->middleware('no-logged');
+
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->middleware('auth');
+
+Route::prefix('/admin')
+    ->middleware(['admin', 'auth'])
+    ->group(function () {
+        Route::get('/users', [App\Http\Controllers\AdminController::class, 'getUsersView'])
+            ->name('users');
+        Route::get('/orders', [App\Http\Controllers\AdminController::class, 'getOrdersView'])
+            ->name('orders');
+    });
+
+
+Route::prefix('/user')->middleware('auth')->group(function () {
+    Route::get('/orders', [App\Http\Controllers\DashboardController::class, 'getOrdersView'])
+        ->name('users.orders');
+    Route::get('/buy', [App\Http\Controllers\DashboardController::class, 'getBuyView'])
+        ->name('users.buy');
+
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');

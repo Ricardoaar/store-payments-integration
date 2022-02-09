@@ -61,8 +61,19 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function Orders(): HasMany
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role->description == 'admin';
+    }
+
 }

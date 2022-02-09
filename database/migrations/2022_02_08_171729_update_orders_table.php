@@ -22,8 +22,7 @@ class UpdateOrdersTable extends Migration
             $table->softDeletes();
             $table->unsignedBigInteger('customer_id');
             $table->bigInteger('request_id');
-
-
+            $table->string('payment_url');
             $table->dropColumn('customer_name');
             $table->dropColumn('customer_email');
             $table->dropColumn('customer_phone');

@@ -1,5 +1,5 @@
-<footer class="bottom-0 w-full py-4 absolute bg-footer grayscale-[0.4] flex justify-center">
-    <ul class="flex justify-between px-4 w-full select-none">
+<footer class="w-full py-4  bg-footer grayscale-[0.4] md:fixed md:bottom-0 ">
+    <ul class="grid-cols-1 grid sm:grid-cols-5 px-4 w-full select-none text-center">
         <li>
             <a class="links" target="_blank" href="https://laravel.com/">
                 Laravel
