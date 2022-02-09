@@ -2,9 +2,8 @@
 
 namespace App\Constants;
 
-use IConstant;
 
-class PaymentStatusses implements IConstant
+class PaymentStatusses extends Constant
 {
 
     const PENDING = 'CREATED';
@@ -21,8 +20,4 @@ class PaymentStatusses implements IConstant
         ];
     }
 
-    function isOnArray(string $key): bool
-    {
-        return in_array($key, $this->toArray());
-    }
 }
