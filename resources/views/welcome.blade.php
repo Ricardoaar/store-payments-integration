@@ -1,18 +1,20 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<x-guest-layout>
+    @livewire('header')
+    <x-slot name="title">
+        Place2PayStore
+    </x-slot>
+    <div class="mt-20 w-full px-8 grid grid-cols-3 gap-4 text-center">
+        <div class=" mx-auto w-full bg-white border-2 border-gray-200 rounded-md shadow-md">
+            <a href="">Discover our products</a>
+        </div>
+        <div class=" mx-auto w-full bg-white border-2 border-gray-200 rounded-md shadow-md">
+            <a href="">Easy pay</a>
+        </div>
+        <div class=" mx-auto w-full bg-white border-2 border-gray-200 rounded-md shadow-md">
+            <a href="">100% Secure!</a>
+        </div>
 
-    <title></title>
+    </div>
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    <!-- Styles -->
-
-</head>
-<body class="antialiased bg-red-800">
-
-
-</body>
-</html>
+    @livewire('footer')
+</x-guest-layout>

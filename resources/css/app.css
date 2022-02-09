@@ -1,0 +1,12 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+.links {
+    @apply text-xl text-link-gray hover:text-primary hover:font-bold;
+}
+
+html {
+    @apply bg-gray-100;
+}
