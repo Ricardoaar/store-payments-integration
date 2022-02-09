@@ -5,31 +5,31 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('orders') }}">
+                    <a href="{{ route('admin.orders') }}">
                         <x-jet-application-mark class="block h-9 w-auto"/>
                     </a>
                 </div>
             @if( (request()->user()->isAdmin()))
                 <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{ route('orders') }}" :active="request()->routeIs('orders')">
+                        <x-jet-nav-link href="{{ route('admin.orders') }}" :active="request()->routeIs('admin.orders')">
                             {{ __('Orders') }}
                         </x-jet-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
+                        <x-jet-nav-link href="{{ route('admin.users') }}" :active="request()->routeIs('admin.users')">
                             {{ __('Users') }}
                         </x-jet-nav-link>
                     </div>
                 @else
 
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{ route('users.orders') }}" :active="request()->routeIs('users.orders')">
+                        <x-jet-nav-link href="{{ route('user.orders') }}" :active="request()->routeIs('user.orders')">
                             {{ __('My Orders') }}
                         </x-jet-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{ route('users.buy') }}" :active="request()->routeIs('users.buy')">
+                        <x-jet-nav-link href="{{ route('user.buy') }}" :active="request()->routeIs('user.buy')">
                             {{ __('Buy') }}
                         </x-jet-nav-link>
                     </div>
@@ -172,12 +172,12 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('orders') }}" :active="request()->routeIs('orders')">
+            <x-jet-responsive-nav-link href="{{ route('admin.orders') }}" :active="request()->routeIs('admin.orders')">
                 {{ __('Orders') }}
             </x-jet-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
+            <x-jet-responsive-nav-link href="{{ route('admin.users') }}" :active="request()->routeIs('admin.users')">
                 {{ __('Users') }}
             </x-jet-responsive-nav-link>
         </div>

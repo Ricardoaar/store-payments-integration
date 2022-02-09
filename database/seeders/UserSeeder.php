@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             'phone_number' => '5543861758',
             'role_id' => 1,
         ]);
-        
+
         User::factory(5)->create();
     }
 }
