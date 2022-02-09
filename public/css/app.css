@@ -1097,6 +1097,12 @@ select {
 .h-full {
   height: 100%;
 }
+.h-48 {
+  height: 12rem;
+}
+.h-64 {
+  height: 16rem;
+}
 .min-h-screen {
   min-height: 100vh;
 }

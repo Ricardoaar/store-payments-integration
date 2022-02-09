@@ -6,7 +6,7 @@ namespace App\Constants;
 class PaymentStatusses extends Constant
 {
 
-    const PENDING = 'CREATED';
+    const CREATED = 'CREATED';
     const PAYED = 'PAYED';
     const REJECTED = 'REJECTED';
 
@@ -14,7 +14,7 @@ class PaymentStatusses extends Constant
     {
 
         return [
-            self::PENDING,
+            self::CREATED,
             self::PAYED,
             self::REJECTED
         ];

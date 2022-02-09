@@ -18,7 +18,7 @@ class CreateOrdersBaseTable extends Migration
             $table->string('customer_name', 80);
             $table->string('customer_email', 120);
             $table->string('customer_phone', 20);
-            $table->enum('status', ['CREATED', 'PAYED', 'REJECTED']);
+            $table->enum('status', (new App\Constants\PaymentStatusses)->toArray());
             $table->timestamps();
         });
     }

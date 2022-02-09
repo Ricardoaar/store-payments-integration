@@ -2,10 +2,10 @@
     <div class="card-header border-b-2 shadow-md">
         <h3 class="text-lg text-primary">{{$title ?? '' }}</h3>
     </div>
-    
+
     <div class="card-body w-full h-auto  flex-col px-4  justify-between items-center py-4">
             <span
-                class="block w-full rounded-lg  h-40  py-16 bg-cover bg-no-repeat bg-center {{$background ?? ''}}"></span>
+                class="block w-full rounded-lg  h-64  py-16 bg-cover bg-no-repeat bg-center {{$background ?? ''}}"></span>
 
 
         <article class="h-full w-full">
