@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Enums\UserRoles;
 use App\Models\Order;
 use App\Models\Role;
 use App\Models\User;
@@ -10,25 +11,42 @@ use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-    use RefreshDatabase;
+
+    private $adminRole;
+    private $userRole;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $roles = Role::all();
+        array_map(function ($role) {
+            $exists = Role::where('description', $role)->exists();
+            if (!$exists) {
+                Role::create(['description' => $role]);
+            }
+        }, UserRoles::toArray());
+
+
+        $this->adminRole = $roles->where('description', UserRoles::ADMIN)->first();
+        $this->userRole = $roles->where('description', UserRoles::USER)->first();
+    }
 
     /**
      * A basic unit test example.
-     *
      * @return void
      */
-    public function test_user_belongs_to_a_role()
+    public
+    function test_user_belongs_to_a_role()
     {
-        Role::factory(2)->create();
         $user = User::factory()->create();
         $this->assertInstanceOf(Role::class, $user->role);
-
     }
 
-    public function test_user_has_many_orders()
+    public
+    function test_user_has_many_orders()
     {
-        $role = Role::factory()->create();
-        $user = User::factory()->create(['role_id' => $role->id]);
+        $user = User::factory()->create(['role_id' => $this->userRole->id]);
         $orders = Order::factory()
             ->count(2)->for($user, 'customer')
             ->create();
@@ -39,17 +57,17 @@ class UserTest extends TestCase
         }
     }
 
-    public function test_user_is_admin()
+    public
+    function test_user_is_admin()
     {
-        $role = Role::factory()->create(['description' => \App\Constants\UserRoles::ADMIN]);
-        $user = User::factory()->create(['role_id' => $role->id]);
+        $user = User::factory()->create(['role_id' => $this->adminRole->id]);
         $this->assertTrue($user->isAdmin());
     }
 
-    public function test_user_is_not_admin()
+    public
+    function test_user_is_not_admin()
     {
-        $role = Role::factory()->create(['description' => \App\Constants\UserRoles::USER]);
-        $user = User::factory()->create(['role_id' => $role->id]);
+        $user = User::factory()->create(['role_id' => $this->userRole->id]);
         $this->assertFalse($user->isAdmin());
     }
 

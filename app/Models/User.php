@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Constants\UserRoles;
+use App\Enums\UserRoles;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -64,7 +65,7 @@ class User extends Authenticatable
 
     public function orders(): HasMany
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Order::class, 'customer_id');
     }
 
     public function role(): BelongsTo
@@ -75,5 +76,21 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role->description == UserRoles::ADMIN;
+    }
+
+    public function getOrdersQuantityAttribute(): int
+    {
+        return $this->orders->count();
+    }
+
+    public function getTotalSpentAttribute(): int
+    {
+        $orders = $this->orders->toArray();
+
+        $total = array_reduce($orders, function ($carry, $order) {
+            return $carry + $order['total'];
+        }, 0);;
+
+        return $total;
     }
 }

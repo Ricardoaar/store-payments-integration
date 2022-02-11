@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Constants\PaymentStatusses;
+use App\Enums\PaymentStatusses;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -16,9 +16,13 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'status' => $this->faker->randomElement((new PaymentStatusses)->toArray()),
+            'status' => $this->faker->randomElement(PaymentStatusses::toArray()),
             'request_id' => $this->faker->randomDigit(),
             'payment_url' => $this->faker->url(),
+            'total' => $this->faker->randomFloat(2, 10, 1000),
+            'reference' => $this->faker->randomNumber(),
+            'gateway' => \App\Enums\PaymentGateways::PLACE_TO_PAY,
+            'currency' => 'USD'
         ];
     }
 }
