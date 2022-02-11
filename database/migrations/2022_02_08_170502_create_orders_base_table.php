@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Enums\PaymentStatusses;
 
 class CreateOrdersBaseTable extends Migration
 {
@@ -18,7 +19,7 @@ class CreateOrdersBaseTable extends Migration
             $table->string('customer_name', 80);
             $table->string('customer_email', 120);
             $table->string('customer_phone', 20);
-            $table->enum('status', (new App\Constants\PaymentStatusses)->toArray());
+            $table->enum('status', PaymentStatusses::toArray());
             $table->timestamps();
         });
     }

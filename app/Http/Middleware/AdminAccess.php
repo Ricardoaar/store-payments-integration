@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Constants\UserRoles;
+use App\Enums\UserRoles;
 use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

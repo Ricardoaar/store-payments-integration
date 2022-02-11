@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Constants\UserRoles;
+use App\Enums\UserRoles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;

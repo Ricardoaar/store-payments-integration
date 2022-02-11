@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\UserRoles;
+use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -24,6 +26,13 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $userRole = Role::where('description', UserRoles::USER)->first();
+        if (!$userRole) {
+            $userRole = Role::create([
+                'description' => UserRoles::USER,
+            ]);
+        }
+
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
@@ -31,7 +40,7 @@ class UserFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
             'phone_number' => Str::random(10),
-            'role_id' => 2,
+            'role_id' => $userRole->id,
         ];
     }
 

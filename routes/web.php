@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->middleware('auth');
+
 Route::prefix('/admin')
     ->middleware(['admin', 'auth'])
     ->group(function () {
@@ -37,5 +38,12 @@ Route::prefix('/user')
         Route::get('/buy', [App\Http\Controllers\DashboardController::class, 'getBuyView'])
             ->name('user.buy');
 
-    });
 
+        Route::prefix('/payment')->group(function () {
+            Route::post('/{gateway}', [App\Http\Controllers\PaymentController::class, 'createPayment'])
+                ->name('payment.createPayment');
+
+            Route::post('/{gateway}/{requestId}', [App\Http\Controllers\PaymentController::class, 'checkPayment'])
+                ->name('payment.checkPayment');
+        });
+    });

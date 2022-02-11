@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PaymentGateways;
+
 class DashboardController extends Controller
 {
     public function getOrdersView()
@@ -11,7 +13,13 @@ class DashboardController extends Controller
 
     public function getBuyView()
     {
-        return view('users.buy');
+
+
+        return view('users.buy', ['gateways' => [
+            'placetoPlay' => PaymentGateways::PLACE_TO_PAY,
+            'mercadoPago' => PaymentGateways::MERCADO_PAGO,
+
+        ]]);
     }
 
 

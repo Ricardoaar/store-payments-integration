@@ -18,16 +18,22 @@ class UpdateOrdersTable extends Migration
     {
 
         Schema::table('orders', function (Blueprint $table) {
-
-            $table->softDeletes();
-            $table->unsignedBigInteger('customer_id');
-            $table->bigInteger('request_id');
-            $table->string('payment_url');
             $table->dropColumn('customer_name');
             $table->dropColumn('customer_email');
             $table->dropColumn('customer_phone');
+
+
+            $table->unsignedBigInteger('customer_id');
+            $table->bigInteger('request_id');
+            $table->string('payment_url');
+            $table->float('total');
+            $table->string('reference');
+            $table->text('description')->nullable();
+
             $table->foreign('customer_id')->references('id')
                 ->on('users')->onDelete('cascade');
+            $table->softDeletes();
+
         });
     }
 

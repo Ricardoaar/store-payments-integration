@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Constants;
+namespace App\Enums;
 
 
-class PaymentStatusses extends Constant
+class PaymentStatusses implements IEnum
 {
 
     const CREATED = 'CREATED';
     const PAYED = 'PAYED';
     const REJECTED = 'REJECTED';
 
-    function toArray(): array
+    static function toArray(): array
     {
 
         return [
@@ -20,4 +20,8 @@ class PaymentStatusses extends Constant
         ];
     }
 
+    static function isInEnum(string $key): bool
+    {
+        return in_array($key, self::toArray());
+    }
 }

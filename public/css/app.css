@@ -968,6 +968,14 @@ select {
   margin-left: 1rem;
   margin-right: 1rem;
 }
+.my-16 {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+.my-8 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
 .ml-3 {
   margin-left: 0.75rem;
 }
@@ -1042,6 +1050,12 @@ select {
 }
 .-mt-px {
   margin-top: -1px;
+}
+.mt-16 {
+  margin-top: 4rem;
+}
+.mb-20 {
+  margin-bottom: 5rem;
 }
 .block {
   display: block;
@@ -1151,6 +1165,12 @@ select {
 .w-64 {
   width: 16rem;
 }
+.w-1\/4 {
+  width: 25%;
+}
+.w-1\/2 {
+  width: 50%;
+}
 .min-w-0 {
   min-width: 0px;
 }
@@ -1250,6 +1270,9 @@ select {
 .justify-between {
   justify-content: space-between;
 }
+.justify-evenly {
+  justify-content: space-evenly;
+}
 .gap-6 {
   gap: 1.5rem;
 }
@@ -1278,6 +1301,11 @@ select {
   --tw-space-x-reverse: 0;
   margin-right: calc(1rem * var(--tw-space-x-reverse));
   margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+}
+.space-x-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 .overflow-hidden {
   overflow: hidden;
@@ -1424,6 +1452,14 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(244 246 247 / var(--tw-bg-opacity));
 }
+.bg-primary {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 108 12 / var(--tw-bg-opacity));
+}
+.bg-blue-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(96 165 250 / var(--tw-bg-opacity));
+}
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
 }
@@ -1457,6 +1493,9 @@ select {
 }
 .p-6 {
   padding: 1.5rem;
+}
+.p-4 {
+  padding: 1rem;
 }
 .px-4 {
   padding-left: 1rem;
@@ -2227,6 +2266,10 @@ html {
 
   .md\:grid {
     display: grid;
+  }
+
+  .md\:w-1\/4 {
+    width: 25%;
   }
 
   .md\:grid-cols-3 {
