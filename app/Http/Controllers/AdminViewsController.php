@@ -3,21 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class AdminViewsController extends Controller
 {
 
     public function getOrdersView()
     {
-        $orders = Order::all();
+        $orders = Order::latest()->paginate();
 
         return view('admin.orders', compact('orders'));
     }
 
     public function getUsersView()
     {
+        $users = User::latest()->paginate();
 
-        return view('admin.users');
+        return view('admin.users', compact('users'));
     }
 }

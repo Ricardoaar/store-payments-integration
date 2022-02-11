@@ -19,7 +19,9 @@ class Order extends Model
         'request_id',
         'payment_url',
         'reference',
-        'description'
+        'description',
+        'gateway',
+        'currency'
     ];
 
     public function customer(): BelongsTo

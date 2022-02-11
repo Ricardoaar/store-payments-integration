@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\PaymentGateways;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -28,8 +29,9 @@ class UpdateOrdersTable extends Migration
             $table->string('payment_url');
             $table->float('total');
             $table->string('reference');
+            $table->string('currency');
             $table->text('description')->nullable();
-
+            $table->enum('gateway', PaymentGateways::toArray());
             $table->foreign('customer_id')->references('id')
                 ->on('users')->onDelete('cascade');
             $table->softDeletes();

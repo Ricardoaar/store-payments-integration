@@ -7,6 +7,7 @@ class PlaceToPayStatusses implements IEnum
     const PENDING = 'PENDING';
     const APPROVED = 'APPROVED';
     const REJECTED = 'REJECTED';
+    const FAILED = 'FAILED';
 
     static function toArray(): array
     {
@@ -14,6 +15,7 @@ class PlaceToPayStatusses implements IEnum
             self::PENDING,
             self::APPROVED,
             self::REJECTED,
+            self::FAILED
         ];
     }
 

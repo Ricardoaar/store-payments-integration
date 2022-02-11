@@ -21,6 +21,8 @@ class OrderFactory extends Factory
             'payment_url' => $this->faker->url(),
             'total' => $this->faker->randomFloat(2, 10, 1000),
             'reference' => $this->faker->randomNumber(),
+            'gateway' => \App\Enums\PaymentGateways::PLACE_TO_PAY,
+            'currency' => 'USD'
         ];
     }
 }

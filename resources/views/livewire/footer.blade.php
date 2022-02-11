@@ -1,4 +1,6 @@
-<footer class="w-full py-4  bg-footer grayscale-[0.4] md:fixed md:bottom-0 ">
+<div class="mt-16"></div>
+<footer class="w-full py-4   bg-footer grayscale-[0.4] md:fixed md:bottom-0 ">
+
     <ul class="grid-cols-1 grid sm:grid-cols-5 px-4 w-full select-none text-center">
         <li>
             <a class="links" target="_blank" href="https://laravel.com/">
