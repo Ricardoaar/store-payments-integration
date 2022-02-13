@@ -1,19 +1,21 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Models;
 
 use App\Enums\UserRoles;
+use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
 
+
     private $adminRole;
-    private $userRole;
+
 
     public function setUp(): void
     {
@@ -26,10 +28,7 @@ class UserTest extends TestCase
                 Role::create(['description' => $role]);
             }
         }, UserRoles::toArray());
-
-
         $this->adminRole = $roles->where('description', UserRoles::ADMIN)->first();
-        $this->userRole = $roles->where('description', UserRoles::USER)->first();
     }
 
     /**
@@ -46,9 +45,9 @@ class UserTest extends TestCase
     public
     function test_user_has_many_orders()
     {
-        $user = User::factory()->create(['role_id' => $this->userRole->id]);
+        $user = User::factory()->create();
         $orders = Order::factory()
-            ->count(2)->for($user, 'customer')
+            ->count(2)->for($user,)
             ->create();
 
         foreach ($orders as $order) {
@@ -67,10 +66,37 @@ class UserTest extends TestCase
     public
     function test_user_is_not_admin()
     {
-        $user = User::factory()->create(['role_id' => $this->userRole->id]);
+        $user = User::factory()->create();
         $this->assertFalse($user->isAdmin());
     }
 
 
-}
+    public function test_user_has_n_orders_and_spent_n_money()
+    {
+        $ordersQuantity = rand(1, 5);
+        $user = User::factory()->create();
 
+
+        $orders = Order::factory()
+            ->count($ordersQuantity)->for($user)
+            ->create();
+        $carts = Cart::factory($ordersQuantity)->create();
+        $this->assertEquals($ordersQuantity, $user->ordersQuantity);
+
+        for ($i = 0; $i < $ordersQuantity; $i++) {
+            $product = Product::factory()->create();
+            $carts[$i]->products()->attach($product);
+            $orders[$i]->update(['cart_id' => $carts[$i]->id]);
+        }
+
+        $total = [];
+
+        foreach ($orders->toArray() as $order) {
+            $currency = $order['currency'];
+            $total[$currency] = $total[$currency] ?? 0;
+            $total[$currency] += $order['total'];
+        }
+
+        $this->assertEquals($total, $user->totalSpent);
+    }
+}

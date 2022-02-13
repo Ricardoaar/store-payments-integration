@@ -17,17 +17,19 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('no-logged')->name('home');
 
-Route::delete('/orders/{order}', [App\Http\Controllers\OrderController::class, 'destroy'])->name('orders.destroy');
 
+Route::delete('orders', [App\Http\Controllers\OrderController::class, 'destroy'])
+    ->middleware('auth')->name('orders.destroy');
 
-Route::get('/dashboard', [App\Http\Controllers\UserDashboardController::class, 'index'])->middleware('auth');
 
 Route::prefix('/admin')
     ->middleware(['admin', 'auth'])
     ->group(function () {
-        Route::get('/users', [App\Http\Controllers\AdminViewsController::class, 'getUsersView'])
+        Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])
             ->name('admin.users');
-        Route::get('/orders', [App\Http\Controllers\AdminViewsController::class, 'getOrdersView'])
+
+
+        Route::get('/orders', [App\Http\Controllers\OrderController::class, 'index'])
             ->name('admin.orders');
     });
 
@@ -35,10 +37,9 @@ Route::prefix('/admin')
 Route::prefix('/user')
     ->middleware('auth')
     ->group(function () {
-        Route::get('/orders', [App\Http\Controllers\UserDashboardController::class, 'getOrdersView'])
+
+        Route::get('/orders', [App\Http\Controllers\OrderController::class, 'index'])
             ->name('user.orders');
-        Route::get('/buy', [App\Http\Controllers\UserDashboardController::class, 'getBuyView'])
-            ->name('user.buy');
 
 
         Route::prefix('/payment')->group(function () {
@@ -51,5 +52,13 @@ Route::prefix('/user')
             Route::post('/{gateway}/retry/{order}', [App\Http\Controllers\PaymentController::class, 'retryPayment'])
                 ->name('payment.retry');
 
+
         });
+
+
+        Route::prefix('/store',)->group(function () {
+            Route::get('/', [App\Http\Controllers\UserDashboardController::class, 'getBuyView'])->name('user.buy');
+        });
+
+
     });

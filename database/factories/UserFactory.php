@@ -24,7 +24,7 @@ class UserFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         $userRole = Role::where('description', UserRoles::USER)->first();
         if (!$userRole) {
@@ -39,7 +39,9 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-            'phone_number' => Str::random(10),
+            'phone_number' => array_reduce(range(1, 10), function ($carry, $next) {
+                return $carry .= $this->faker->randomDigit();
+            }, ''),
             'role_id' => $userRole->id,
         ];
     }

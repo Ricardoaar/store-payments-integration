@@ -14,7 +14,11 @@
         </div>
         <div class="flex justify-center space-x-2">
             <p class="font-bold">Total Spent</p>
-            <p>{{$user->totalSpent}}</p>
+            @forelse(array_keys($user->totalSpent) as $currency )
+                <p>  {{$user->totalSpent[ $currency]}} {{$currency}} </p>
+            @empty
+                <p>0</p>
+            @endforelse
         </div>
         <div class="flex justify-center space-x-2">
             <p class="font-bold">Phone Number</p>

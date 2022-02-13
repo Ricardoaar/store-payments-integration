@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Product extends Model
@@ -13,14 +13,17 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        'description',
         'price',
-        'image',
-        'category_id',
+        'image_route',
     ];
 
-    public function order(): HasOne
+
+    /**
+     * @return BelongsToMany
+     */
+    public function carts(): BelongsToMany
     {
-        return $this->hasOne(Order::class);
+        return $this->belongsToMany(Cart::class,
+            'products_carts');
     }
 }
