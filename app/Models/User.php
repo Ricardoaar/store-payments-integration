@@ -21,6 +21,8 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    private $totalSpent;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -83,14 +85,17 @@ class User extends Authenticatable
         return $this->orders->count();
     }
 
-    public function getTotalSpentAttribute(): int
+
+    public function getTotalSpentAttribute(): array
     {
         $orders = $this->orders->toArray();
+        $this->totalSpent = [];
+        array_map(function ($order) {
+            $currency = $order['currency'];
+            $this->totalSpent[$currency] = $this->totalSpent[$currency] ?? 0;
+            $this->totalSpent[$currency] += $order['total'];
+        }, $orders);;
 
-        $total = array_reduce($orders, function ($carry, $order) {
-            return $carry + $order['total'];
-        }, 0);;
-
-        return $total;
+        return $this->totalSpent;
     }
 }

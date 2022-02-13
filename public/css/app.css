@@ -964,13 +964,13 @@ select {
   margin-left: auto;
   margin-right: auto;
 }
-.mx-4 {
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
 .my-10 {
   margin-top: 2.5rem;
   margin-bottom: 2.5rem;
+}
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 .my-2 {
   margin-top: 0.5rem;
@@ -1060,8 +1060,8 @@ select {
 .mb-1 {
   margin-bottom: 0.25rem;
 }
-.mb-10 {
-  margin-bottom: 2.5rem;
+.mt-32 {
+  margin-top: 8rem;
 }
 .block {
   display: block;
@@ -1120,6 +1120,9 @@ select {
 .h-64 {
   height: 16rem;
 }
+.h-3\/4 {
+  height: 75%;
+}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -1170,9 +1173,6 @@ select {
 }
 .w-64 {
   width: 16rem;
-}
-.w-1\/2 {
-  width: 50%;
 }
 .min-w-0 {
   min-width: 0px;
@@ -1284,6 +1284,13 @@ select {
 }
 .gap-1 {
   gap: 0.25rem;
+}
+.gap-x-2 {
+  -moz-column-gap: 0.5rem;
+       column-gap: 0.5rem;
+}
+.gap-y-1 {
+  row-gap: 0.25rem;
 }
 .space-x-8 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
@@ -1404,6 +1411,10 @@ select {
   --tw-border-opacity: 1;
   border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
+.border-white {
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
+}
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
@@ -1467,14 +1478,6 @@ select {
 .bg-white-opaque {
   --tw-bg-opacity: 1;
   background-color: rgb(244 246 247 / var(--tw-bg-opacity));
-}
-.bg-red-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
-}
-.bg-red-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(153 27 27 / var(--tw-bg-opacity));
 }
 .bg-red-500 {
   --tw-bg-opacity: 1;
@@ -1766,10 +1769,6 @@ select {
 .text-gray-300 {
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity));
-}
-.text-blue-400 {
-  --tw-text-opacity: 1;
-  color: rgb(96 165 250 / var(--tw-text-opacity));
 }
 .underline {
   -webkit-text-decoration-line: underline;
@@ -2074,10 +2073,6 @@ html {
 }
 @media (min-width: 640px) {
 
-  .sm\:relative {
-    position: relative;
-  }
-
   .sm\:col-span-4 {
     grid-column: span 4 / span 4;
   }
@@ -2284,12 +2279,25 @@ html {
     position: fixed;
   }
 
-  .md\:relative {
-    position: relative;
+  .md\:absolute {
+    position: absolute;
+  }
+
+  .md\:sticky {
+    position: -webkit-sticky;
+    position: sticky;
   }
 
   .md\:bottom-0 {
     bottom: 0px;
+  }
+
+  .md\:-bottom-4 {
+    bottom: -1rem;
+  }
+
+  .md\:-bottom-0 {
+    bottom: -0px;
   }
 
   .md\:col-span-2 {

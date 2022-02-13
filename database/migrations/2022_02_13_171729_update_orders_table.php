@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Schema;
 
 class UpdateOrdersTable extends Migration
 {
+    
+
     /**
      * Run the migrations.
      *
@@ -24,18 +26,29 @@ class UpdateOrdersTable extends Migration
             $table->dropColumn('customer_phone');
 
 
-            $table->unsignedBigInteger('customer_id');
             $table->bigInteger('request_id');
-            $table->string('payment_url');
-            $table->float('total');
-            $table->string('reference');
-            $table->string('currency');
-            $table->text('description')->nullable();
-            $table->enum('gateway', PaymentGateways::toArray());
-            $table->foreign('customer_id')->references('id')
-                ->on('users')->onDelete('cascade');
-            $table->softDeletes();
 
+            $table->string('payment_url');
+
+            $table->float('total')->default(0);
+
+            $table->string('reference');
+
+            $table->string('currency');
+
+            $table->text('description')->nullable();
+
+            $table->enum('gateway', PaymentGateways::toArray());
+
+
+            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('cart_id')->nullable();
+            $table->foreign('cart_id')->references('id')
+                ->on('carts')->onDelete('set null');
+            $table->foreign('customer_id')->references('id')
+                ->on('users');
+
+            $table->softDeletes();
         });
     }
 
@@ -47,9 +60,7 @@ class UpdateOrdersTable extends Migration
     public function down()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('customer_id');
-            $table->dropColumn('request_id');
-            $table->dropColumn('deleted_at');
+
         });
     }
 }
