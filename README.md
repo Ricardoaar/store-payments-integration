@@ -33,7 +33,10 @@ _Learn more about [**docker compose**](https://docs.docker.com/compose/)_
 
 Then run `php artisan migrate:install; php artisan migrate --seed`
 
-Credentials for users are:
+
+
+## Credentials  created with seeders
+
 **Admin**
 
 **Email**: admin@gmail.com
@@ -41,8 +44,6 @@ Credentials for users are:
 **Password**: password
 
 **Customer**
-
-## Credentials for testing
 
 **Email**: customer@gmail.com
 
