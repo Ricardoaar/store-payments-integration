@@ -18,3 +18,7 @@ html {
 .table-item {
     @apply flex items-center justify-center border h-full border-gray-400;
 }
+
+.btn {
+    @apply w-full p-2 rounded-md text-white bg-primary hover:bg-orange-800;
+}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -27,15 +28,24 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return Application|Factory|View
+     * @param ProductRequest $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request): RedirectResponse
     {
-        $product = new Product();
-        //TOdo create product
-        return view('product.productEdit', compact('product'));
+        $product = $this->saveProduct($request);
 
+//        $request->validated();
+//        $path = $request->file('image')->store('public/images');
+//
+//        $temp = explode('/', $path);
+//        $path = "storage/$temp[1]/$temp[2]";
+//        $product = new Product();
+//        $product->name = $request->name;
+//        $product->image_route = $path;
+//        $product->price = $request->price;
+//        $product->save();
+        return redirect()->route('products.edit', $product->id);
     }
 
 
@@ -45,19 +55,38 @@ class ProductController extends Controller
      */
     public function edit(Product $product): view
     {
+
         return view('product.productEdit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param ProductRequest $request
      * @param Product $product
-     * @return view
+     * @return RedirectResponse
      */
-    public function update(Request $request, Product $product): view
+    public function update(ProductRequest $request, Product $product): RedirectResponse
     {
-        return view('product.productEdit', compact('product'));
+        $product = $this->saveProduct($request, $product);
+        return redirect()->route('products.edit', $product->id);
+    }
+
+
+    private function saveProduct(ProductRequest $request, Product $product = null): Product
+    {
+        $request->validated();
+        $path = $request->file('image')->store('public/images');
+        if (is_null($product)) {
+            $product = new Product();
+        }
+        $temp = explode('/', $path);
+        $path = "storage/$temp[1]/$temp[2]";
+        $product->name = $request->name;
+        $product->image_route = $path;
+        $product->price = $request->price;
+        $product->save();
+        return $product;
     }
 
 
