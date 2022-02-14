@@ -9,7 +9,7 @@
             </div>
 
             <figure>
-                <img src="{{$product->image_route}}" alt="{{$product->name}} image">
+                <img src="{{ $product->image_route}}" alt="{{$product->name}} image">
             </figure>
             <div>
                 <p class="text-center text-white text-3xl py-8">{{$product->price}}USD</p>
@@ -29,7 +29,6 @@
                     </label>
                     <input type="text" value="{{$product->name}}" id="name" name="name"
                            class="rounded-xl border-gray-400 shadow-xl">
-
                 </div>
                 <div class="flex w-full justify-center space-x-4 items-center">
                     <label for="price">Price

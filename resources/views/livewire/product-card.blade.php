@@ -36,14 +36,14 @@
                         </a>
                     @else
 
-                        <a href="{{route('cart.add',[$product])}}">
+                        <a class="btn" href="{{route('cart.add',[$product])}}">
                             Add
                         </a>
 
 
 
                         @if(in_array($product->name,array_map(function($p){return $p['name'];},auth()->user()->currentCart->products->toArray()) ) )
-                            <a href="{{route('cart.remove',[$product])}}">
+                            <a class="btn" href="{{route('cart.remove',[$product])}}">
                                 Remove
                             </a>
                         @endif
