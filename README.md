@@ -38,7 +38,7 @@ _Learn more about [**docker compose**](https://docs.docker.com/compose/)_
 Then run `php artisan migrate:install; php artisan migrate --seed`
 
 
-Finally in order to make work images stored
+Finally in order to make work stored images
 
 run `php artisan storage:link`
 
