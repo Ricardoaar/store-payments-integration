@@ -66,6 +66,7 @@ run `php artisan storage:link`
 * [`TailwindCSS`](https://tailwindcss.com/)
 * [`Livewire`](https://laravel-livewire.com/)
 * [`Mysql`](https://www.mysql.com/)
+* [`phpunit`](https://phpunit.de/)
 
 ## Author
 
