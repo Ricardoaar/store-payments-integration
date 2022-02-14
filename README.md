@@ -67,6 +67,7 @@ run `php artisan storage:link`
 * [`Livewire`](https://laravel-livewire.com/)
 * [`Mysql`](https://www.mysql.com/)
 * [`phpunit`](https://phpunit.de/)
+* [`Jetstream`](https://jetstream.laravel.com/2.x/features/authentication.html)
 
 ## Author
 
