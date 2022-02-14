@@ -15,10 +15,10 @@ class CreateProductsCartsTable extends Migration
     {
         Schema::create('products_carts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('product_id')->nullable();
             $table->unsignedBigInteger('cart_id');
-            $table->foreign('product_id')->references('id')->on('products');
-            $table->foreign('cart_id')->references('id')->on('carts');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('set null');
+            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
         });
     }
 

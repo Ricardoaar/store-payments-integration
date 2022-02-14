@@ -63,7 +63,7 @@
 
             @endif
             <form class="w-full"
-                  action="{{route('orders.destroy',[$order])}}"
+                  action="{{route('orders.destroy',[$order->id])}}"
                   method="post">
                 @csrf
                 @method('DELETE')
@@ -71,15 +71,10 @@
                        class="bg-red-500 w-full py-1  mb-1 rounded-md  text-white font-bold cursor-pointer"
                        value="Delete">
             </form>
-            <form class="w-full"
-                  method="get">
-                @csrf
-                <input type="submit"
-                       class="bg-gray-500  w-full py-1 mb-1 rounded-md   text-white font-bold cursor-pointer"
-                       value="See">
-            </form>
+
+            <a type="submit" href="{{route('user.orders.show',[$order])}}"
+               class="bg-gray-500  w-full py-1 mb-1 rounded-md   text-white font-bold cursor-pointer">
+                See</a>
         </div>
-
-
     </div>
 </div>

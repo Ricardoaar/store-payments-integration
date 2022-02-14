@@ -10,10 +10,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Order extends Model
 {
     use HasFactory;
-    use softDeletes;
 
     protected $fillable = [
-        'customer_id',
+        'user_id',
         'total',
         'status',
         'request_id',
@@ -26,7 +25,7 @@ class Order extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'customer_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function cart(): BelongsTo
@@ -41,7 +40,9 @@ class Order extends Model
 
     public function updateTotal()
     {
-
+        if (!$this->cart) {
+            return 0;
+        }
         $products = $this->cart->productsWithData;
         if (empty($products)) {
             return 0;

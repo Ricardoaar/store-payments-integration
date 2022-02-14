@@ -18,7 +18,7 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'customer_id' => User::factory(),
+            'user_id' => User::factory(),
             'status' => $this->faker->randomElement(PaymentStatusses::toArray()),
             'request_id' => $this->faker->randomDigit(),
             'payment_url' => $this->faker->url(),

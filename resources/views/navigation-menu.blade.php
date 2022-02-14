@@ -21,6 +21,12 @@
                             {{ __('Users') }}
                         </x-jet-nav-link>
                     </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('products.index') }}"
+                                        :active="request()->routeIs('products.index')">
+                            {{ __('Products') }}
+                        </x-jet-nav-link>
+                    </div>
                 @else
 
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -92,17 +98,22 @@
                             </x-slot>
                         </x-jet-dropdown>
                     </div>
+                @endif
+                @if(!auth()->user()->isAdmin())
+                    <livewire:cart-component/>
             @endif
-
             <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
                     <x-jet-dropdown align="right" width="48">
+
                         <x-slot name="trigger">
+
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                 <button
                                     class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                                     <img class="h-8 w-8 rounded-full object-cover"
-                                         src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"/>
+                                         src="{{ Auth::user()->profile_photo_url }}"
+                                         alt="{{ Auth::user()->name }}"/>
                                 </button>
                             @else
                                 <span class="inline-flex rounded-md">
@@ -153,6 +164,11 @@
                     </x-jet-dropdown>
                 </div>
             </div>
+            <div class="block sm:hidden justify-center flex items-center w-full">
+                @if(!auth()->user()->isAdmin())
+                    <livewire:cart-component/>
+                @endif
+            </div>
 
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
@@ -169,6 +185,7 @@
             </div>
         </div>
     </div>
+
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">

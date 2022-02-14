@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use App\Enums\UserRoles;
+use App\Http\Controllers\CartController;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -67,7 +69,7 @@ class User extends Authenticatable
 
     public function orders(): HasMany
     {
-        return $this->hasMany(Order::class, 'customer_id');
+        return $this->hasMany(Order::class, 'user_id');
     }
 
     public function role(): BelongsTo
@@ -83,6 +85,20 @@ class User extends Authenticatable
     public function getOrdersQuantityAttribute(): int
     {
         return $this->orders->count();
+    }
+
+    public function carts(): HasMany
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function currentCart(): HasOne
+    {
+
+        if ($this->carts === null || $this->carts->count() === 0) {
+            CartController::createCart();
+        }
+        return $this->hasOne(Cart::class)->latestOfMany();
     }
 
 

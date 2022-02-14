@@ -18,9 +18,8 @@ Route::get('/', function () {
 })->middleware('no-logged')->name('home');
 
 
-Route::delete('orders', [App\Http\Controllers\OrderController::class, 'destroy'])
+Route::delete('orders/{order}', [App\Http\Controllers\OrderController::class, 'destroy'])
     ->middleware('auth')->name('orders.destroy');
-
 
 Route::prefix('/admin')
     ->middleware(['admin', 'auth'])
@@ -31,6 +30,8 @@ Route::prefix('/admin')
 
         Route::get('/orders', [App\Http\Controllers\OrderController::class, 'index'])
             ->name('admin.orders');
+        Route::resource('/products', App\Http\Controllers\ProductController::class)
+            ->except(['show']);
     });
 
 
@@ -40,9 +41,12 @@ Route::prefix('/user')
 
         Route::get('/orders', [App\Http\Controllers\OrderController::class, 'index'])
             ->name('user.orders');
-
+        Route::get('/orders/{order}', [App\Http\Controllers\OrderController::class, 'show'])
+            ->name('user.orders.show');
 
         Route::prefix('/payment')->group(function () {
+
+
             Route::post('/{gateway}', [App\Http\Controllers\PaymentController::class, 'createPayment'])
                 ->name('payment.createPayment');
 
@@ -52,12 +56,24 @@ Route::prefix('/user')
             Route::post('/{gateway}/retry/{order}', [App\Http\Controllers\PaymentController::class, 'retryPayment'])
                 ->name('payment.retry');
 
+            Route::post('/', [App\Http\Controllers\PaymentController::class, 'pay'])
+                ->name('payment.pay');
+        });
+
+        Route::prefix('/cart')->group(function () {
+            Route::get('/', [App\Http\Controllers\CartController::class, 'index'])
+                ->name('cart.show');
+            Route::get('/add/{product}', [App\Http\Controllers\CartController::class, 'addToCart'])
+                ->name('cart.add');
+            Route::get('/remove/{product}', [App\Http\Controllers\CartController::class, 'removeFromCart'])
+                ->name('cart.remove');
 
         });
 
 
         Route::prefix('/store',)->group(function () {
             Route::get('/', [App\Http\Controllers\UserDashboardController::class, 'getBuyView'])->name('user.buy');
+
         });
 
 
