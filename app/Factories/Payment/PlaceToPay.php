@@ -8,6 +8,7 @@ use App\Enums\PaymentStatusses;
 use App\Enums\PlaceToPayStatusses;
 use App\Models\Order;
 use App\Util\CredentialsMaker;
+use Dflydev\DotAccessData\Data;
 use Exception;
 use App\Factories\Payment\Interfaces\IPayment;
 use Illuminate\Support\Facades\Auth;
@@ -85,8 +86,7 @@ class PlaceToPay implements IPayment
     /**
      * @throws Exception
      */
-    public
-    function createPayment(array $data)
+    public function createPayment(array $data)
     {
         $endpoint = 'api/session/';
         $auth = $this->getAuthData();
@@ -106,16 +106,14 @@ class PlaceToPay implements IPayment
             "ipAddress" => $data['ipAddress'],
             "userAgent" => $data['userAgent'],
         ];
-
         $response =
             Http::withHeaders(['content-type' => 'application/json'])
                 ->post($this->baseUrl . $endpoint,
                     $body);
 
-
         $responseData = $response->json();
         if ($responseData['status']['status'] === PlaceToPayStatusses::FAILED) {
-            return back()->withErrors('Error while processing payment');
+            return ['errors' => ['Error while processing payment']];
         }
         $this->CreateOrderWithResponseData(array_merge($data, $responseData));
         return $responseData["processUrl"];
@@ -123,21 +121,22 @@ class PlaceToPay implements IPayment
 
     private function CreateOrderWithResponseData(array $data): void
     {
+
         if ($data['status']['status'] !== 'OK') {
             redirect()->back()->with('error', 'Error creating order');
         }
-
-
         $user = Auth::user();
-        Order::create([
-            'customer_id' => $user->id,
+        $order = Order::create([
+            'user_id' => $user->id,
             'payment_url' => $data['processUrl'],
             'status' => PaymentStatusses::CREATED,
             'request_id' => $data['requestId'],
             'total' => $data['total'],
             'reference' => $data['reference'],
             'description' => $data['description'],
-            'gateway' => PaymentGateways::PLACE_TO_PAY
+            'gateway' => PaymentGateways::PLACE_TO_PAY,
         ]);
+        $order->cart()->associate($user->currentCart);
+        $order->save();
     }
 }

@@ -52,7 +52,7 @@ class UserTest extends TestCase
 
         foreach ($orders as $order) {
             $this->assertInstanceOf(Order::class, $order);
-            $this->assertEquals($user->id, $order->customer_id);
+            $this->assertEquals($user->id, $order->user->id);
         }
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PaymentStatusses;
 use App\Models\Order;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -28,8 +29,10 @@ class OrderController extends Controller
 
     function show(Order $order)
     {
+        if ($order->status == PaymentStatusses::CREATED) {
+            (new PaymentController())->checkPayment($order->gateway, $order->request_id);
+        }
+
         return view('orders.show', compact('order'));
     }
-
-
 }

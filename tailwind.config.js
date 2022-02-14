@@ -30,6 +30,7 @@ module.exports = {
                 'security': "url('../img/Secure.jpg')",
                 'product': "url('../img/Product.jpeg')",
                 'pay': "url('../img/Pay.png')",
+                'cart': "url('../img/cart.png')",
 
             },
             screens: {

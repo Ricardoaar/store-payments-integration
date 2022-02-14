@@ -31,6 +31,15 @@
                 {{ $header }}
             </div>
         </header>
+    @endif
+
+    @if($errors->any())
+
+        <div class="w-3/4 mt-8 mx-auto p-6 bg-red-400 rounded">
+            @foreach($errors->all() as $error)
+                <p class="text-white">{{ $error }}</p>
+            @endforeach
+        </div>
 @endif
 
 <!-- Page Content -->
