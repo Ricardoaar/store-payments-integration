@@ -23,7 +23,11 @@ Then configure:
 * `DB_USERNAME`
 * `DB_PASSWORD`
 
+
+
 Remember rename `.env.example` to `.env`
+
+
 
 ### Migrate and configure database
 
@@ -32,6 +36,12 @@ create a **container with your database just for this project**.
 _Learn more about [**docker compose**](https://docs.docker.com/compose/)_
 
 Then run `php artisan migrate:install; php artisan migrate --seed`
+
+
+Finally in order to make work images stored
+
+run `php artisan storage:link`
+
 
 
 
@@ -56,7 +66,6 @@ Then run `php artisan migrate:install; php artisan migrate --seed`
 * [`TailwindCSS`](https://tailwindcss.com/)
 * [`Livewire`](https://laravel-livewire.com/)
 * [`Mysql`](https://www.mysql.com/)
-*
 
 ## Author
 
